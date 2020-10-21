@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>View all Tables</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hot Restaurant</h1>
+            <h3>Boot a table before they're gone!</h3>
+            <hr>
+            <a href="/view"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> View
+                    Tables</button></a>
+            <a href="/form"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> Reserve</button></a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3><strong>Tables</strong></h3>
+        </div>
+        <table class="table" id="tables" style="white-space: pre;">
+        </table>
+    </div>
+</body>
+
+<script>
+    $.get("/api/tables", function (res, status) {
+        res.forEach(element => {
+            let newTr = $("<tr>");
+            let newTd = $("<td>");
+            newTd.text(
+                `
+Name: ${element.name}
+Phone Number: ${element.phoneNumber}
+Email: ${element.email}
+Unique ID: ${element.id}
+`
+            );
+            newTd.appendTo(newTr)
+
+            newTr.appendTo("#tables");
+        });
+    });
+</script>
